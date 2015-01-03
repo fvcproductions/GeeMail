@@ -1,18 +1,255 @@
+<!--
+	GeeMail App
+	index.html
+	FVCproductions
+	DevLeague Coding Challenge
+
+	- personal GitHub handle: fvcproductions
+	- Sublime Text 3 - check
+
+	1. Fork repository - check
+	2. Create basic page layout using HTML/CSS - check
+-->
+
+
 <html>
+
 	<head>
+
+		<title>GeeMail App</title>
+
+		<!--JavaScript Source-->
+
 		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
-    </script>
-	</head>
-	<body>
-		<div class="container" id="main">
-			Build Me!
+
+		<!--CSS Source-->
+		<!--Used Google Font - Lato - for CSS in general-->
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8"> 
+
+    	<!-- JavaScript Start-->
+
+    	<script>
+
+    	    window.onload = function(){
+        	
+	        	// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+	        	// We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+	        	
+	        		/* 
+	        			3. When your page loads, via JavaScript access our prepopulated data stored in the `window.geemails` variable. Each object in the array has the following properties:
+							* date - The date message was sent
+							* subject - The subject of the message
+							* sender - The sender of the message
+							* body - The GeeMail message content
+					*/
+
+		        	// accessing prepopulated data in the window.geemails variable
+		        	
+		        	for (var i = 0; i < window.geemails.length; i++) {
+
+		        		// declaring and initalizing variable called subjectLine to the message of each email in window.geemails variable
+		        		
+		        		var subjectLine = getEmail(window.geemails[i]);
+
+		        		// using pre-defined div id to divide up each email - assigning this to variable called eachEmail
+		        		
+		        		var eachEmail = document.getElementById("main");
+		        		
+		        		// appending every subjectLine in appropriate email box
+		        		
+		        		eachEmail.appendChild(subjectLine);
+
+		        		// printing out each e-mail in windows.geemails variable
+		        		
+		        		console.log(window.geemails[i]);
+		        	
+		        	}
+
+		        	/* 
+		        		5. You must show an inbox count somewhere on the page to show the current number of messages in your inbox.
+					*/
+
+		        	// declaring variable called total and assigning it to div id of 'total' - will be used to hold text value of total # of emails
+
+		        	var total = document.getElementById("total");
+
+		        	// declaring variable called theTotal that can be constantly added on to in upcoming functions and therefore updated - this will keep track of how many emails there are in total
+		        	
+		        	var theTotal = window.geemails.length;
+
+		        	// declaring variable called counter and assigning it to text value of the total number of emails in window.geemails variable - which is stored in theTotal variable
+		        	
+		        	var counter = document.createTextNode(theTotal);
+
+		        	// appending counter to total - so that total # of emails is shown in div id called 'total'
+		        	
+		        	total.appendChild(counter);
+
+		        /*
+	        		6. Set a recurring function to via the JavaScript `setInterval` function that will call our existing `getNewMessage` function that we have created for you that will return a newly created message with the same properties as your previous messages.
+	        	 */
+	        	
+	        	// so basically this function is called every time a new interval has taken place
+
+	        	function eachInterval(){
+
+	        		// using pre-defined function to initalize newMessage variable to getNewMessage function
+
+					var newMessage = getNewMessage();
+					
+					// using pre-defined function to initalize subjectLine variable to getEmail function with a parameter of newMessage
+
+					// getEmail method shown below
+					
+					var subjectLine = getEmail(newMessage);
+
+					// using pre-defined div id provided (main) to initalize subjectLine variable to getNewMessage function
+					
+					var entireMessage = document.getElementById("main");
+					
+					// appending the subjectLine already grabbed to entireMessage
+					
+					entireMessage.appendChild(subjectLine);
+					
+					// updating the number of emails by one for each interval
+					
+					theTotal++;
+
+					// updating text as well to coincide with theTotal
+					
+					total.innerHTML = theTotal;
+					
+					// printing out new subjectLine as well 
+					
+					console.log(subjectLine);
+
+				};
+
+				// setting the Interval to 10000, so 10 seconds
+				// 1000 ms = 1 second, so 10000 ms = 10 seconds
+
+				setInterval(eachInterval, 10000);
+
+			}
+
+			// getting text function with class name
+
+        	function getText(text, theClass) {
+        		
+        		// make a div to represent the text block of the email
+        		
+        		var textBlock = document.createElement("div");
+
+        		// making text box that will go inside the div element or text block
+        		
+        		var actualText = document.createTextNode(text);
+        		
+        		// the class name of the text will be added to the classname of the textBlock
+        		
+        		textBlock.className += theClass; 
+
+        		// appending the actual text of the message to the textBlock
+        		
+        		textBlock.appendChild(actualText);	
+        		
+        		// print out textBlock that now has all the text
+				
+				return textBlock;
+
+			};
+
+			function getEmail(message){
+				
+				// make a div to represent the subject line of the email
+
+	        	var subjectLine = document.createElement("div");
+
+	        	// theDate represents the date in the email
+
+	        	var date = getText(message["date"], "theDate");
+
+	        	// theSender represents the sender in the email
+	        	
+	        	var sender = getText(message["sender"], "theSender");
+	        	
+	        	// theSubject represents the subject title in the email
+	        	
+	        	var subject = getText(message["subject"], "theSubject");
+	        	
+	        	// theBody represents the text of the email or message/body
+
+	        	var body = getText(message["body"], "theBody hideMe");
+
+	        	// adding on all the elements to get the entire email
+	        	
+	        	subjectLine.className += 'subjectLine';
+	        	subjectLine.appendChild(sender);
+	        	subjectLine.appendChild(subject);
+	        	subjectLine.appendChild(date);
+	        	subjectLine.appendChild(body);
+
+	        	// adding an event listener for clicking the message
+	        	// when clicking on a message you must provide some method of showing the message for that row
+	        	
+	        	subjectLine.addEventListener("click", function(){ 
+					
+					// printing subjectLine 
+					
+					console.log(this);
+					
+					// creating variable bodyToggle that will get element body
+
+					var bodyToggle = this.getElementsByClassName("theBody");
+					
+					// revealing body when clicked on
+
+					bodyToggle[0].classList.toggle('hideMe');
+					
+					// printing message out
+					
+					console.log(body);
+				
+				})
+				
+				// returning email text
+
+				return subjectLine;
+			
+			};
+
+
+    	</script>
+
+    	<!-- 
+    		All JavaScript created in <head> element of included index.html file
+		-->
+
+    </head>
+
+    <body>
+		
+		<div class="header">
+			
+			<!--
+				Gmail App Icon - Links to GitHub repo
+				Header
+			-->
+			<a href="https://github.com/fvcproductions/gee-mail">
+				<img src="https://lh6.ggpht.com/8-N_qLXgV-eNDQINqTR-Pzu5Y8DuH0Xjz53zoWq_IcBNpcxDL_gK4uS_MvXH00yN6nd4=w300" style="width: 100px;height:100px" alt="GeeMail GitHub Repo">
+			</a>
+
+			<!--
+				Displaying total Inbox Count along with app name
+			-->
+
+			<h1>GeeMail Inbox (<span id="total"></span>)</h1>
+		
 		</div>
+				
+		<div class="container" id="main"></div>	
+		
 	</body>
+
 </html>

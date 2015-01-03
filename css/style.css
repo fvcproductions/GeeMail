@@ -1,0 +1,103 @@
+/* 
+
+  CSS 
+
+*/
+
+/* asterisk selects all unelss specifically stated */
+
+* {
+  background: #fff;
+  color: #333;
+  font-family: Lato, sans-serif;
+}
+
+/* container */
+
+.container {
+  margin: 0px auto;
+  text-align: center;
+}
+
+/* to display email message */
+
+.hideMe {
+  display: none!important;
+}
+
+/* header */
+
+.header {
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* any images */
+
+img {
+  text-align: center;
+  display: inline-block;
+}
+
+/* sender being displayed on far left */
+
+.theSender {
+  float: left; 
+  width: 33%;
+  margin-top: 20px;
+}
+
+/* subject being displayed in middle */
+
+.theSubject {
+  font-weight: bold;
+  display: inline-block; 
+  width: 34%;
+  height: 50px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+/* subject went hovered over */
+
+.theSubject:hover {
+  color: red;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* date being displayed on far right */
+
+.theDate {
+  float: right; 
+  width: 33%;
+  margin-top: 20px;
+}
+
+/* body of message */
+
+.theBody {
+  color: gray;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  width: 50%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* adding borders to clarify different messages */
+
+.subjectLine {
+  border-top: 1px dotted;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+/* for inbox count */
+
+span {
+  cursor: progress;
+}
