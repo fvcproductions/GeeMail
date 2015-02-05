@@ -7,6 +7,10 @@ GeeMail is a coding exercise meant to simulate an e-mail web application inbox.
 
 ---
 
+## Completed Project can be found [here](http://htmlpreview.github.io/?https://github.com/fvcproductions/gee-mail/blob/master/index.html).
+
+---
+
 ## Description
 
 * coding challenge done for [DevLeague](http://devleague.com)
